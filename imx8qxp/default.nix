@@ -24,7 +24,7 @@ stdenvNoCC.mkDerivation {
   ];
 
   buildCommand = ''
-    install -m 0644 $(spectrum) spectrum-live-imx8qxp.img
+    install -m 0644 ${spectrum} spectrum-live-imx8qxp.img
     dd if=${uboot}/flash.bin of=spectrum-live-imx8qxp.img bs=1k seek=32 conv=notrunc
     IMG=spectrum-live-imx8qxp.img
     ESP_OFFSET=$(sfdisk --json $IMG | jq -r '
