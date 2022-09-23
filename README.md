@@ -20,15 +20,9 @@ Basic structure for out-of-tree build configuration, referring to Spectrum in pl
 
 ### Known issues
 
-error: attribute 'rootfs' missing
-
-       at /home/vilvo/out-of-tree-build/spectrum-config-imx8/imx8qxp/default.nix:9:12:
-
-            8|   spectrum = import ../../spectrum/img/live { };
-            9|   kernel = spectrum.rootfs.kernel;
-             |            ^
-           10| in
-(use '--show-trace' to show detailed location information)
+```
+       > make: *** No rule to make target '/nix/store/06g1qv0p84bbsjyk6f6p4r9l418dcg7k-systemd-aarch64-unknown-linux-musl-250.4/lib/systemd/boot/efi/systemd-bootx64.efi', needed by 'build/boot.fat'.  Stop.
+```
 
 ## More info
 
