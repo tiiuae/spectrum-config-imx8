@@ -5,7 +5,7 @@
 let
   inherit (config) pkgs;
   uboot = pkgs.ubootIMX8QXP;
-  spectrum = import ../../spectrum/img/live { };
+  spectrum = import ../../spectrum/release/live { };
   kernel = spectrum.rootfs.kernel;
 in
 
