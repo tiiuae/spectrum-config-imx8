@@ -23,13 +23,15 @@
             rootModules = [ "dm-verity" "loop" ];
           });
 
-          ubootIMX8QXP = super.ubootIMX8QXP.overrideAttrs ( {patches ? [],...}: {
+          ubootIMX8QXP = super.ubootIMX8QXP.overrideAttrs ( { patches ? [],...}: {
             patches = patches ++ [
               ./patches/uboot-kvms-copy-to-internal-memory.patch
             ];
           });
 
-          kvms = super.kvms_bin;
+          kvms = super.kvms_bin.overrideAttrs ( {...}: {
+            chipset = "imx8qxp";
+          });
 
         })
     ];
