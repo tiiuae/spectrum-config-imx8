@@ -1,15 +1,14 @@
 # SPDX-FileCopyrightText: 2022 Unikie
 
-{ config ? import ../../spectrum/nix/eval-config.nix {} }:
+{ config ? import ../../spectrum/nix/eval-config.nix {} }: config.pkgs.callPackage (
+{ stdenvNoCC, util-linux, jq, mtools }:
 
 let
-  inherit (config) pkgs;
-  uboot = pkgs.ubootIMX8QXP;
-  spectrum = import ../../spectrum/release/live { };
+  inherit (config);
+  uboot = config.pkgs.ubootIMX8QXP;
+  spectrum = import ../../spectrum/release/live { inherit (config); };
   kernel = spectrum.rootfs.kernel;
 in
-
-with pkgs;
 
 stdenvNoCC.mkDerivation {
   pname = "spectrum-live-imx8qxp.img";
@@ -18,9 +17,9 @@ stdenvNoCC.mkDerivation {
   unpackPhase = "true";
 
   nativeBuildInputs = [
-    pkgsBuildHost.util-linux
-    pkgsBuildHost.jq
-    pkgsBuildHost.mtools
+    util-linux
+    jq
+    mtools
   ];
 
   buildCommand = ''
@@ -43,3 +42,4 @@ stdenvNoCC.mkDerivation {
     mv $pname $out
   '';
 }
+) { }
