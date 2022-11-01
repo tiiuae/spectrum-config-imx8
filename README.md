@@ -16,7 +16,7 @@ Works only on native aarch64 compilation. Does not cross-compile.
 
 ### Build image
 
-    nix-build spectrum-config-imx8/imx8qxp/ -I nixpkgs=nixpkgs-spectrum/ -I spectrum-config=spectrum-config-imx8/config.nix
+    nix-build spectrum-config-imx8/imx8qm/ -I nixpkgs=nixpkgs-spectrum/ -I spectrum-config=spectrum-config-imx8/config.nix
 
 ### Test results
 
