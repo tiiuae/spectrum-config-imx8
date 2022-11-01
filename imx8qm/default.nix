@@ -1,13 +1,22 @@
 # SPDX-FileCopyrightText: 2022 Unikie
 
 { config ? import ../../spectrum/nix/eval-config.nix {} }: config.pkgs.callPackage (
-{ stdenvNoCC, util-linux, jq, mtools }:
+{ stdenvNoCC, util-linux, jq, mtools, enableKvms ? false }:
+
+with config.pkgs;
 
 let
   inherit (config);
   uboot = config.pkgs.ubootIMX8QM;
-  spectrum = import ../../spectrum/release/live { inherit (config); };
+  spectrum = import ../../spectrum/img/live { inherit (config); };
   kernel = spectrum.rootfs.kernel;
+  kvmsOverriden = if enableKvms
+                  then kvms.overrideAttrs
+                        ({...}: {
+                          inherit kernel;
+                          chipset = "imx8qm";
+                        })
+                  else false;
 in
 
 stdenvNoCC.mkDerivation {
@@ -40,7 +49,10 @@ stdenvNoCC.mkDerivation {
     ')
     mcopy -no -i $pname@@$ESP_OFFSET ${kernel}/dtbs/freescale/imx8qm-mek-hdmi.dtb ::/
     mcopy -no -i $pname@@$ESP_OFFSET ${config.pkgs.imx-firmware}/hdmitxfw.bin ::/
+    '' + lib.optionalString (kvmsOverriden != false) ''
+    mcopy -no -i $pname@@$ESP_OFFSET ${kvmsOverriden}/bl1.bin ::/
+    '' + ''
     mv $pname $out
-  '';
+    '';
 }
 ) { }
