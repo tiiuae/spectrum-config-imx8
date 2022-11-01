@@ -53,6 +53,14 @@ remote: Compressing objects: 100% (44/44), done.
 remote: Total 67 (delta 28), reused 50 (delta 16), pack-reused 0
 Receiving objects: 100% (67/67), 44.09 KiB | 2.10 MiB/s, done.
 Resolving deltas: 100% (28/28), done.
+
+~/wayland$ for i in $(ls); do echo $i && git -C $i log --oneline -1; done
+e8649a64618 (HEAD -> wayland, origin/wayland) USB to VM build issues with libudev fixed (#27)
+spectrum
+fb08211 (HEAD -> wayland, origin/wayland) USB to VM build issues fixed
+spectrum-config-imx8
+b370902 (HEAD -> main, origin/main, origin/HEAD) Add missing configuration options for linux_imx8 kernel
+
 ~/wayland$ nix-build spectrum-config-imx8/imx8qm/ -I nixpkgs=nixpkgs-spectrum/ -I spectrum-config=spectrum-config-imx8/config.nix
 /nix/store/qlq59356nbxxzhr0drmqcxnls8s0cbn2-spectrum-live-imx8qm.img-0.1
 <logout awsarm>
