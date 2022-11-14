@@ -76,4 +76,4 @@ $ sudo sync
 
 ## More info
 
-See https://spectrum-os.org/doc/build-configuration.html
+See https://spectrum-os.org/doc/development/build-configuration.html
