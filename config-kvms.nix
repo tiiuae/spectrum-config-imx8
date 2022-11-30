@@ -13,10 +13,12 @@
               VIRTIO_BLK = yes;
               EXT4_FS = yes;
             };
-            kernelPatches = [{
-              name = "kernel_kvms_5.15.32_imx8";
-              patch = ./patches/kernel_kvms_5.15.32_imx8.patch;
-            }];
+            kernelPatches = [
+              {
+                name = "kernel_kvms_5.15.32_imx8";
+                patch = ./patches/kernel_kvms_5.15.32_imx8.patch;
+              }
+            ];
           };
 
           makeModulesClosure = args: super.makeModulesClosure (args // {
@@ -29,10 +31,15 @@
             ];
           });
 
-          kvms = super.kvms_bin.overrideAttrs ( {...}: {
-            chipset = "imx8qxp";
+          ubootIMX8QM = super.ubootIMX8QM.overrideAttrs ( { patches ? [],...}: {
+            patches = patches ++ [
+              ./patches/uboot-kvms-copy-to-internal-memory.patch
+            ];
           });
 
+          enableKvms = true;
+
+          kvms = super.kvms_bin;
         })
     ];
     crossSystem = { config = "aarch64-unknown-linux-musl"; };
