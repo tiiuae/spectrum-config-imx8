@@ -9,5 +9,5 @@
 {
   #doc = import ./Documentation { inherit pkgs; };
 
-  live = import spectrum-config-imx8/imx8qm/default.nix;
+  live = import ./imx8qm/default.nix;
 }
