@@ -1,12 +1,12 @@
 # SPDX-FileCopyrightText: 2022 Unikie
 
-{ config ? import ../../spectrum/nix/eval-config.nix {} }: config.pkgs.callPackage (
+{ config ? import <spectrum/nix/eval-config.nix> {} }: config.pkgs.callPackage (
 { stdenvNoCC, util-linux, jq, mtools }:
 
 let
   inherit (config);
   uboot = config.pkgs.ubootIMX8QM;
-  spectrum = import ../../spectrum/release/live { inherit (config); };
+  spectrum = import <spectrum/release/live> { inherit (config); };
   kernel = spectrum.rootfs.kernel;
 in
 
